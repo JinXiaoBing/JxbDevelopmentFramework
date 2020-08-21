@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="text_title" format="string" />
+    <attr name="text_size" format="dimension" />
+    <attr name="min_height" format="dimension" />
+    <attr name="text_content" format="string" />
+    <attr name="text_content2" format="string" />
+    <attr name="text_hint" format="string" />
+
+    <attr name="customInputType">
+        <flag name="text" value="0x00000001" />
+        <flag name="number" value="0x00000002" />
+        <flag name="numberDecimal" value="0x00002002" />
+    </attr>
+    <attr name="customImeOptions">
+        <flag name="normal" value="0x00000000" />
+        <flag name="actionUnspecified" value="0x00000000" />
+        <flag name="actionNone" value="0x00000001" />
+        <flag name="actionGo" value="0x00000002" />
+        <flag name="actionSearch" value="0x00000003" />
+        <flag name="actionSend" value="0x00000004" />
+        <flag name="actionNext" value="0x00000005" />
+        <flag name="actionDone" value="0x00000006" />
+        <flag name="actionPrevious" value="0x00000007" />
+        <flag name="flagNoPersonalizedLearning" value="0x1000000" />
+        <flag name="flagNoFullscreen" value="0x2000000" />
+        <flag name="flagNavigatePrevious" value="0x4000000" />
+        <flag name="flagNavigateNext" value="0x8000000" />
+        <flag name="flagNoExtractUi" value="0x10000000" />
+        <flag name="flagNoAccessoryAction" value="0x20000000" />
+        <flag name="flagNoEnterAction" value="0x40000000" />
+        <flag name="flagForceAscii" value="0x80000000" />
+    </attr>
+    <declare-styleable name="CustomLineEditText">
+        <attr name="customInputType" />
+        <attr name="text_title" />
+        <attr name="text_size" />
+        <attr name="min_height" />
+        <attr name="text_content" />
+        <attr name="text_content2" />
+        <attr name="customImeOptions" />
+        <attr name="text_hint" />
+        <attr name="imeActionLabel" format="string" />
+
+    </declare-styleable>
+
+    <declare-styleable name="CustomLineAutoCompleteTextView">
+        <attr name="customInputType" />
+        <attr name="text_title" />
+        <attr name="text_size" />
+        <attr name="min_height" />
+        <attr name="text_content" />
+        <attr name="text_hint" />
+    </declare-styleable>
+    <declare-styleable name="CustomLineTextView">
+        <attr name="text_title" />
+        <attr name="text_size" />
+        <attr name="min_height" />
+        <attr name="text_content" />
+        <attr name="text_hint" />
+        <attr name="text_title2" format="string" />
+        <attr name="text_title3" format="string" />
+        <attr name="text_content2"/>
+        <attr name="text_hint2" format="string" />
+        <attr name="showRightArrow" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="CustomAppBar">
+        <attr name="appbar_title" format="string" />
+        <attr name="appbar_leftStr" format="string" />
+        <attr name="appbar_rightStr" format="string" />
+        <attr name="appbar_backBtnVisible" format="boolean" />
+        <attr name="appbar_rightBtnVisible" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="CustomSearchView">
+        <attr name="text_title" />
+        <attr name="text_size" />
+        <attr name="isAutoSearch" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="CustomRadioGroup">
+        <attr name="text_title" />
+        <attr name="text_size" />
+    </declare-styleable>
+</resources>
