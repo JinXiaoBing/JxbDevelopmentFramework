@@ -1,34 +1,82 @@
 package com.jinxb.developmentframework.ui;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.WindowManager;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
-import com.blankj.utilcode.util.ToastUtils;
+import com.blankj.utilcode.util.BarUtils;
+import com.jinxb.developmentframework.domain.manager.NetworkStateManager;
+import com.jinxb.developmentframework.ui.page.DataBindingActivity;
 import com.jinxb.developmentframework.utils.BaseDialogUtils;
+
 
 /**
  * Created by guoqingqing on 2017/5/10.
  */
 
-public class BaseActivity extends AppCompatActivity {
-    protected Context mContext;
-    private Intent mIntent;
+public abstract class BaseActivity extends DataBindingActivity {
     private boolean isFront = false;
+    protected BaseViewModel viewModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        BarUtils.setStatusBarColor(this, Color.TRANSPARENT);
+        BarUtils.setStatusBarLightMode(this, true);
         super.onCreate(savedInstanceState);
-        //强制竖屏
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//强制竖屏
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-        mContext = this;
+        getLifecycle().addObserver(NetworkStateManager.getInstance());
+        initObserve();
+    }
+
+    protected void initObserve() {
+        viewModel.getInfoDialogLiveData().observe(this, infoDialogBean ->
+                showInfoDialog(infoDialogBean.getMsg(), infoDialogBean.getOnConfirmListener())
+        );
+        viewModel.getConfirmDialogLiveData()
+                .observe(this, confirmDialogBean ->
+                        showConfirmDialog(confirmDialogBean.getMsg(), confirmDialogBean.getOnConfirmListener(),
+                                confirmDialogBean.getOnCancelListener()));
+        viewModel.getToastMsgLiveData().observe(this, msg -> {
+            if (!isFront) return;
+            showShortToast(msg);
+        });
+    }
+
+    protected <T extends ViewModel> T getActivityViewModel(@NonNull Class<T> modelClass) {
+        return super.getActivityViewModel(modelClass);
+    }
+
+    protected ViewModelProvider getAppViewModelProvider() {
+        return super.getAppViewModelProvider();
+    }
+
+    protected void showInfoDialog(String msg) {
+        BaseDialogUtils.showInfoDialog(this, msg);
+    }
+
+    protected void showInfoDialog(String msg, BaseDialogUtils.OnClickListener listener) {
+        BaseDialogUtils.showInfoDialog(this, msg, listener);
+    }
+
+
+    public void showConfirmDialog(String msg,
+                                  BaseDialogUtils.OnClickListener onClickListener) {
+        BaseDialogUtils.showConfirmDialog(this, msg, onClickListener);
+    }
+
+    public void showConfirmDialog(String msg,
+                                  BaseDialogUtils.OnClickListener onConfirmListener,
+                                  BaseDialogUtils.OnClickListener onCancelListener) {
+        BaseDialogUtils.showConfirmDialog(this, msg, onConfirmListener, onCancelListener);
     }
 
     @Override
@@ -46,53 +94,23 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        setResult(RESULT_OK);
         BaseDialogUtils.dismissAll();
     }
 
-    public void showInfoDialog(String msg) {
-        BaseDialogUtils.showInfoDialog(this, msg);
-    }
-
-    public void showInfoDialog(String msg, BaseDialogUtils.OnClickListener onClickListener) {
-        BaseDialogUtils.showInfoDialog(this, msg, onClickListener);
-    }
-
-    public void showConfirmDialog(String msg, BaseDialogUtils.OnClickListener listener) {
-        BaseDialogUtils.showConfirmDialog(this, msg, listener);
-    }
-
-    public void showConfirmDialog(String msg,
-                                  BaseDialogUtils.OnClickListener confirmListener,
-                                  BaseDialogUtils.OnClickListener cancelListener) {
-        BaseDialogUtils.showConfirmDialog(this, msg, confirmListener, cancelListener);
-    }
-
-    public void showToast(String msg) {
-        ToastUtils.showShort(msg);
-    }
-
     public void goActivity(Class<? extends Activity> className) {
-        mIntent = new Intent(this, className);
-        startActivity(mIntent);
+        Intent intent = new Intent(this, className);
+        startActivity(intent);
     }
 
     public void goActivityWithData(Class<? extends Activity> className, Bundle b) {
-        mIntent = new Intent(this, className);
+        Intent mIntent = new Intent(this, className);
         mIntent.putExtras(b);
         startActivity(mIntent);
-    }
-    public void goActivityForResultWithData(Class<? extends Activity> className,
-                                            int requestCode, Bundle b) {
-        mIntent = new Intent(this, className);
-        mIntent.putExtras(b);
-        startActivityForResult(mIntent, requestCode);
     }
 
     public void goActivityForResult(Class<? extends Activity> className,
                                     int requestCode) {
-        mIntent = new Intent(this, className);
-        startActivityForResult(mIntent, requestCode);
+        Intent intent = new Intent(this, className);
+        startActivityForResult(intent, requestCode);
     }
-
 }
