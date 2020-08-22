@@ -14,10 +14,19 @@ import java.util.logging.Level;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 
-public class BaseHttpRequestManager {
+public class HttpRequestManager {
     private final OkHttpClient.Builder builder;
 
-    public BaseHttpRequestManager() {
+
+    public static HttpRequestManager getInstance() {
+        return HttpRequestManager.HttpRequestManagerHolder.sInstance;
+    }
+    private static class HttpRequestManagerHolder {
+        private static final HttpRequestManager sInstance =
+                new HttpRequestManager();
+    }
+
+    private HttpRequestManager() {
         builder = new OkHttpClient.Builder();
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor("OkGo");
         //log打印级别，决定了log显示的详细程度
