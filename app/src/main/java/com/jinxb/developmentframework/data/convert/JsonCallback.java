@@ -31,7 +31,7 @@ import okhttp3.Response;
 /**
  * Create by KunMinX at 19/7/13
  */
-public abstract class JsonCallback<T> extends AbsCallback<T> {
+public  class JsonCallback<T> extends AbsCallback<T> {
     private DataResult<T> result;
 
     public JsonCallback(DataResult<T> result) {
@@ -54,12 +54,6 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
         netState.setSuccess(false);
         netState.setResponseCode(response.code()+"");
         result.setResult(null,netState);
-    }
-
-
-    @Override
-    public void onFinish() {
-        super.onFinish();
     }
 
     @Override
