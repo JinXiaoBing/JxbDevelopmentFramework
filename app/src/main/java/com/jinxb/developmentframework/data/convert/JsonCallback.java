@@ -19,6 +19,8 @@ package com.jinxb.developmentframework.data.convert;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
+import com.jinxb.developmentframework.data.repository.DataResult;
+import com.jinxb.developmentframework.domain.manager.NetState;
 import com.lzy.okgo.callback.AbsCallback;
 
 import java.lang.reflect.ParameterizedType;
@@ -30,14 +32,30 @@ import okhttp3.Response;
  * Create by KunMinX at 19/7/13
  */
 public abstract class JsonCallback<T> extends AbsCallback<T> {
+    private DataResult<T> result;
+
+    public JsonCallback(DataResult<T> result) {
+        this.result = result;
+    }
 
     @Override
     public void onSuccess(com.lzy.okgo.model.Response<T> response) {
         T body = response.body();
-        onSuccess(body);
+        NetState netState = new NetState();
+        netState.setSuccess(true);
+        netState.setResponseCode(response.code()+"");
+        result.setResult(body,netState);
     }
 
-    public abstract void onSuccess(T body);
+    @Override
+    public void onError(com.lzy.okgo.model.Response<T> response) {
+        super.onError(response);
+        NetState netState = new NetState();
+        netState.setSuccess(false);
+        netState.setResponseCode(response.code()+"");
+        result.setResult(null,netState);
+    }
+
 
     @Override
     public void onFinish() {
