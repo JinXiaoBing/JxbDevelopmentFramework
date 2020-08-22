@@ -43,11 +43,11 @@ public class HttpRequestManager {
         builder.connectTimeout(OkGo.DEFAULT_MILLISECONDS, TimeUnit.MILLISECONDS);
     }
 
-    protected void requestGet(String url, AbsCallback callback) {
+    public void requestGet(String url, AbsCallback callback) {
         requestGet(url, null, callback);
     }
 
-    protected void requestGet(String url, HashMap<String, String> params,
+    public void requestGet(String url, HashMap<String, String> params,
                               AbsCallback callback) {
         OkGo.<String>get(url)
                 .retryCount(0)
@@ -55,29 +55,29 @@ public class HttpRequestManager {
                 .params(params).execute(callback);
     }
 
-    protected void requestPost(String url, HashMap<String, String> params,
+    public void requestPost(String url, HashMap<String, String> params,
                                AbsCallback callback) {
         requestPost(url, null, params, null, null, callback);
 
     }
 
-    protected void requestPost(String url, AbsCallback callback) {
+    public void requestPost(String url, AbsCallback callback) {
         requestPost(url, null, null, null, null, callback);
 
     }
 
-    protected void requestPost(String url, RequestBody body, AbsCallback callback) {
+    public void requestPost(String url, RequestBody body, AbsCallback callback) {
         requestPost(url, body, null, null, null, callback);
     }
 
-    protected void requestPost(String url, HashMap<String, String> params,
+    public void requestPost(String url, HashMap<String, String> params,
                                String fileParamsKey, List<File> fileList,
                                AbsCallback callback) {
         requestPost(url, null, params, fileParamsKey, fileList, callback);
 
     }
 
-    protected void requestPost(String url, RequestBody body,
+    public void requestPost(String url, RequestBody body,
                                HashMap<String, String> params, String fileParamsKey,
                                List<File> fileList, AbsCallback callback) {
         OkGo.<String>post(url)
