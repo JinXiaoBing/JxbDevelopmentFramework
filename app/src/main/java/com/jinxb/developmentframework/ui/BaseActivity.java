@@ -34,6 +34,7 @@ public abstract class BaseActivity extends DataBindingActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//强制竖屏
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         getLifecycle().addObserver(NetworkStateManager.getInstance());
+        viewModel = getActivityViewModel(BaseViewModel.class);
         initObserve();
     }
 
