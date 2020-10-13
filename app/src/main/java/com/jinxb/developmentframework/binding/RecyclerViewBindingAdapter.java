@@ -3,17 +3,16 @@ package com.jinxb.developmentframework.binding;
 import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
-
-import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import java.util.List;
 
 public class RecyclerViewBindingAdapter {
     @BindingAdapter(value = {"adapter", "submitList", "autoScrollToTopWhenInsert", "autoScrollToBottomWhenInsert"},
             requireAll = false)
-    public static void bindList(RecyclerView recyclerView, BaseQuickAdapter adapter, List list,
+    public static void bindList(RecyclerView recyclerView, ListAdapter adapter, List list,
                                 boolean autoScrollToTopWhenInsert, boolean autoScrollToBottomWhenInsert) {
 
         if (recyclerView != null && list != null) {
@@ -50,7 +49,7 @@ public class RecyclerViewBindingAdapter {
                     }
                 });
             }
-            adapter.setNewInstance(list);
+            adapter.submitList(list);
         }
     }
 
