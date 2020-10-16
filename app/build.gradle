@@ -53,6 +53,7 @@ dependencies {
     api rootProject.ext.dependencies.glide
     annotationProcessor rootProject.ext.dependencies["glide-compiler"]
     api rootProject.ext.dependencies.gson
-    api rootProject.ext.dependencies.refreshlayout
+    api rootProject.ext.dependencies.refreshlayoutBGA
+    api rootProject.ext.dependencies.refreshlayoutSwipe
     api rootProject.ext.dependencies.BaseRecyclerViewAdapterHelper
 }

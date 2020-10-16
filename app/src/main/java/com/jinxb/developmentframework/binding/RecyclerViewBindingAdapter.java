@@ -7,6 +7,10 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
+import com.aspsine.swipetoloadlayout.OnRefreshListener;
+import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
+
 import java.util.List;
 
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
@@ -61,6 +65,23 @@ public class RecyclerViewBindingAdapter {
         if (refreshLayout != null && delegate != null) {
             refreshLayout.setDelegate(delegate);
         }
+    }
+
+    @BindingAdapter(value = {"onRefreshListener", "onLoadMoreListener","","refreshing","loadingMore"}, requireAll = false)
+    public static void initSwipeLoadLayout(SwipeToLoadLayout view, OnRefreshListener onRefreshListener,
+                                            OnLoadMoreListener onLoadMoreListener, boolean refreshing,
+                                            boolean loadingMore) {
+        if (view == null) {
+            return;
+        }
+        if (onRefreshListener != null) {
+            view.setOnRefreshListener(onRefreshListener);
+        }
+        if (onLoadMoreListener != null) {
+            view.setOnLoadMoreListener(onLoadMoreListener);
+        }
+        view.setRefreshing(refreshing);
+        view.setLoadingMore(loadingMore);
     }
 
     @BindingAdapter(value = {"notifyCurrentListChanged"})

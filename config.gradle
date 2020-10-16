@@ -37,7 +37,8 @@ ext {
             "glide-compiler"               : 'com.github.bumptech.glide:compiler:4.11.0',
             "gson"                         : 'com.google.code.gson:gson:2.8.6',
             "BaseRecyclerViewAdapterHelper": 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4',
-            "refreshlayout"            : 'cn.bingoogolapple:bga-refreshlayout-androidx:2.0.0@aar',
+            "refreshlayoutBGA"                : 'cn.bingoogolapple:bga-refreshlayout-androidx:2.0.0@aar',
+            "refreshlayoutSwipe"                : 'com.github.Aspsine:SwipeToLoadLayout:1.0.4'
     ]
 }
 
