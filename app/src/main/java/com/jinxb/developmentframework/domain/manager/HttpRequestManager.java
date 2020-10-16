@@ -4,6 +4,7 @@ package com.jinxb.developmentframework.domain.manager;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.AbsCallback;
 import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
+import com.lzy.okgo.model.HttpHeaders;
 
 import java.io.File;
 import java.util.HashMap;
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
+import okhttp3.Headers;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 
@@ -21,9 +23,9 @@ public class HttpRequestManager {
     public static HttpRequestManager getInstance() {
         return HttpRequestManager.HttpRequestManagerHolder.sInstance;
     }
+
     private static class HttpRequestManagerHolder {
-        private static final HttpRequestManager sInstance =
-                new HttpRequestManager();
+        private static final HttpRequestManager sInstance = new HttpRequestManager();
     }
 
     private HttpRequestManager() {
@@ -44,44 +46,61 @@ public class HttpRequestManager {
     }
 
     public void requestGet(String url, AbsCallback callback) {
-        requestGet(url, null, callback);
+        requestGet(url, null, null, callback);
     }
 
-    public void requestGet(String url, HashMap<String, String> params,
-                              AbsCallback callback) {
+    public void requestGet(String url, HashMap<String, String> params, AbsCallback callback) {
+        requestGet(url, null, params, callback);
+    }
+
+    public void requestGet(String url, HttpHeaders httpHeaders, HashMap<String, String> params,
+                           AbsCallback callback) {
         OkGo.<String>get(url)
                 .retryCount(0)
+                .headers(httpHeaders)
                 .client(builder.build())
                 .params(params).execute(callback);
     }
 
-    public void requestPost(String url, HashMap<String, String> params,
-                               AbsCallback callback) {
-        requestPost(url, null, params, null, null, callback);
+    public void requestPost(String url, HttpHeaders headers, HashMap<String, String> params, AbsCallback callback) {
+        requestPost(url, headers, null,params, null, null, callback);
+    }
 
+    public void requestPost(String url, HashMap<String, String> params, AbsCallback callback) {
+        requestPost(url, null, null,params, null, null, callback);
     }
 
     public void requestPost(String url, AbsCallback callback) {
-        requestPost(url, null, null, null, null, callback);
+        requestPost(url, null,null, null, null, null, callback);
+    }
 
+    public void requestPost(String url, HttpHeaders headers, AbsCallback callback) {
+        requestPost(url, headers,null, null, null, null, callback);
     }
 
     public void requestPost(String url, RequestBody body, AbsCallback callback) {
-        requestPost(url, body, null, null, null, callback);
+        requestPost(url, null, body, null, null, null, callback);
     }
 
-    public void requestPost(String url, HashMap<String, String> params,
-                               String fileParamsKey, List<File> fileList,
-                               AbsCallback callback) {
-        requestPost(url, null, params, fileParamsKey, fileList, callback);
-
+    public void requestPost(String url, HttpHeaders headers, RequestBody body, AbsCallback callback) {
+        requestPost(url, headers, body, null, null, null, callback);
     }
 
-    public void requestPost(String url, RequestBody body,
-                               HashMap<String, String> params, String fileParamsKey,
-                               List<File> fileList, AbsCallback callback) {
+    public void requestPost(String url, HashMap<String, String> params, String fileParamsKey, List<File> fileList,
+                            AbsCallback callback) {
+        requestPost(url, null, null,params, fileParamsKey, fileList, callback);
+    }
+
+    public void requestPost(String url, HttpHeaders headers, HashMap<String, String> params, String fileParamsKey,
+                            List<File> fileList, AbsCallback callback) {
+        requestPost(url, headers, null,params, fileParamsKey, fileList, callback);
+    }
+
+    public void requestPost(String url, HttpHeaders headers, RequestBody body, HashMap<String, String> params,
+                            String fileParamsKey, List<File> fileList, AbsCallback callback) {
         OkGo.<String>post(url)
                 .retryCount(0)
+                .headers(headers)
                 .client(builder.build())
                 .upRequestBody(body)
                 .params(params)
