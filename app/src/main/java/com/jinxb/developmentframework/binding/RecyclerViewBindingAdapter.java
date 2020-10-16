@@ -67,7 +67,7 @@ public class RecyclerViewBindingAdapter {
         }
     }
 
-    @BindingAdapter(value = {"onRefreshListener", "onLoadMoreListener","","refreshing","loadingMore"}, requireAll = false)
+    @BindingAdapter(value = {"onRefreshListener", "onLoadMoreListener","refreshing","loadingMore"}, requireAll = false)
     public static void initSwipeLoadLayout(SwipeToLoadLayout view, OnRefreshListener onRefreshListener,
                                             OnLoadMoreListener onLoadMoreListener, boolean refreshing,
                                             boolean loadingMore) {
