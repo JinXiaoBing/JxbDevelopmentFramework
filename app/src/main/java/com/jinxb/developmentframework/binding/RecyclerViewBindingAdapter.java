@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import java.util.List;
 
+import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
+
 public class RecyclerViewBindingAdapter {
     @BindingAdapter(value = {"adapter", "submitList", "autoScrollToTopWhenInsert", "autoScrollToBottomWhenInsert"},
             requireAll = false)
@@ -53,6 +55,13 @@ public class RecyclerViewBindingAdapter {
         }
     }
 
+    @BindingAdapter(value = {"delegate"}, requireAll = false)
+    public static void bindDelegate(BGARefreshLayout refreshLayout,
+                                    BGARefreshLayout.BGARefreshLayoutDelegate delegate) {
+        if (refreshLayout != null && delegate != null) {
+            refreshLayout.setDelegate(delegate);
+        }
+    }
 
     @BindingAdapter(value = {"notifyCurrentListChanged"})
     public static void notifyListChanged(RecyclerView recyclerView, boolean notify) {
