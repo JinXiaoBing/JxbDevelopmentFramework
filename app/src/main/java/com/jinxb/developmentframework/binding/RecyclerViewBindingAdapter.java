@@ -67,10 +67,11 @@ public class RecyclerViewBindingAdapter {
         }
     }
 
-    @BindingAdapter(value = {"onRefreshListener", "onLoadMoreListener","refreshing","loadingMore"}, requireAll = false)
+    @BindingAdapter(value = {"onRefreshListener", "onLoadMoreListener","refreshEnabled", "refreshing","loadMoreEnabled","loadingMore"},
+            requireAll = false)
     public static void initSwipeLoadLayout(SwipeToLoadLayout view, OnRefreshListener onRefreshListener,
-                                            OnLoadMoreListener onLoadMoreListener, boolean refreshing,
-                                            boolean loadingMore) {
+                                            OnLoadMoreListener onLoadMoreListener,boolean refreshEnabled,
+                                           boolean refreshing, boolean loadMoreEnabled, boolean loadingMore) {
         if (view == null) {
             return;
         }
@@ -81,6 +82,8 @@ public class RecyclerViewBindingAdapter {
             view.setOnLoadMoreListener(onLoadMoreListener);
         }
         view.setRefreshing(refreshing);
+        view.setRefreshEnabled(refreshEnabled);
+        view.setLoadMoreEnabled(loadMoreEnabled);
         view.setLoadingMore(loadingMore);
     }
 
