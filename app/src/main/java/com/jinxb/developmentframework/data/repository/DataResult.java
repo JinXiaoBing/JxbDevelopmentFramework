@@ -55,13 +55,9 @@ public class DataResult<T> {
         if (mResult == null) {
             throw new NullPointerException("Need to instantiate the Result<T> first ...");
         }
-        if (t == null) {
-            throw new NullPointerException("Need to instantiate the T first ...");
-        }
         if (netState == null) {
             throw new NullPointerException("Need to instantiate the NetState first ...");
         }
-
         mT = t;
         mNetState = netState;
         mResult.onResult(t, netState);
