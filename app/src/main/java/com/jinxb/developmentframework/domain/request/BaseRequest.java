@@ -28,6 +28,7 @@ import com.jinxb.developmentframework.ui.callback.UnPeekLiveData;
  */
 public class BaseRequest {
 
+    protected final UnPeekLiveData<String> errorMsgEvent = new UnPeekLiveData<>();
     protected final UnPeekLiveData<NetState> netStateEvent = new UnPeekLiveData<>();
 
     //TODO tip 向 ui 层提供的 request LiveData，使用抽象的 ProtectedUnPeekLiveData 而不是 UnPeekLiveData
@@ -38,4 +39,5 @@ public class BaseRequest {
     public ProtectedUnPeekLiveData<NetState> getNetStateEvent() {
         return netStateEvent;
     }
+    public ProtectedUnPeekLiveData<String> getErrorMsgEvent() { return errorMsgEvent; }
 }
