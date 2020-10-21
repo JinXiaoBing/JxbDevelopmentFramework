@@ -87,7 +87,7 @@ public class RefreshView extends FrameLayout {
     }
 
 
-    @BindingAdapter(value = {"onRefreshListener", "refreshEnabled", "refreshing", "loadMoreEnabled", "loadingMore"},
+    @BindingAdapter(value = {"onRefreshListener", "refreshing"},
             requireAll = false)
     public static void initSwipeLoadLayout(RefreshView view, OnRefreshListener onRefreshListener, boolean refreshing) {
         if (view == null) {
