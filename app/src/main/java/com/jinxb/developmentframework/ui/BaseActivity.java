@@ -35,10 +35,10 @@ public abstract class BaseActivity extends DataBindingActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         getLifecycle().addObserver(NetworkStateManager.getInstance());
         getLifecycle().addObserver(LiveDataManager.getInstance());
+        initObserve();
     }
 
     protected void initObserve() {
-
 
     }
 
