@@ -3,18 +3,18 @@ package com.jinxb.developmentframework.manager;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.MutableLiveData;
 
 import com.jinxb.developmentframework.data.ConfirmDialogBean;
 import com.jinxb.developmentframework.data.InfoDialogBean;
+import com.jinxb.developmentframework.ui.callback.UnPeekLiveData;
 
 public class LiveDataManager implements DefaultLifecycleObserver {
-    public MutableLiveData<String> toastLiveData = new MutableLiveData<>();
-    public MutableLiveData<String> errorMsgLiveData = new MutableLiveData<>();
-    public MutableLiveData<String> processMsgLiveData = new MutableLiveData<>();
-    public MutableLiveData<Boolean> dismissProcessDialogLiveData = new MutableLiveData<>();
-    public MutableLiveData<InfoDialogBean> infoDialogLiveData = new MutableLiveData<>();
-    public MutableLiveData<ConfirmDialogBean> confirmDialogLiveData = new MutableLiveData<>();
+    public UnPeekLiveData<String> toastLiveData = new UnPeekLiveData<>();
+    public UnPeekLiveData<String> errorMsgLiveData = new UnPeekLiveData<>();
+    public UnPeekLiveData<String> processMsgLiveData = new UnPeekLiveData<>();
+    public UnPeekLiveData<Boolean> dismissProcessDialogLiveData = new UnPeekLiveData<>();
+    public UnPeekLiveData<InfoDialogBean> infoDialogLiveData = new UnPeekLiveData<>();
+    public UnPeekLiveData<ConfirmDialogBean> confirmDialogLiveData = new UnPeekLiveData<>();
 
 
     private LiveDataManager() {
