@@ -114,7 +114,7 @@ public class BaseDialogUtils {
 
 
 
-    private static void dismissProgressDialog() {
+    public static void dismissProgressDialog() {
         if (mProgressDialog != null && mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
         }

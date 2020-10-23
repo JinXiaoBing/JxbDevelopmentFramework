@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.blankj.utilcode.util.BarUtils;
 import com.jinxb.developmentframework.domain.manager.NetworkStateManager;
+import com.jinxb.developmentframework.manager.LiveDataManager;
 import com.jinxb.developmentframework.ui.page.DataBindingActivity;
 import com.jinxb.developmentframework.utils.BaseDialogUtils;
 
@@ -23,7 +24,6 @@ import com.jinxb.developmentframework.utils.BaseDialogUtils;
  */
 
 public abstract class BaseActivity extends DataBindingActivity {
-    private boolean isFront = false;
     protected BaseViewModel viewModel;
 
     @Override
@@ -34,21 +34,12 @@ public abstract class BaseActivity extends DataBindingActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//强制竖屏
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         getLifecycle().addObserver(NetworkStateManager.getInstance());
-        initObserve();
+        getLifecycle().addObserver(LiveDataManager.getInstance());
     }
 
     protected void initObserve() {
-        viewModel.getInfoDialogLiveData().observe(this, infoDialogBean ->
-                showInfoDialog(infoDialogBean.getMsg(), infoDialogBean.getOnConfirmListener())
-        );
-        viewModel.getConfirmDialogLiveData()
-                .observe(this, confirmDialogBean ->
-                        showConfirmDialog(confirmDialogBean.getMsg(), confirmDialogBean.getOnConfirmListener(),
-                                confirmDialogBean.getOnCancelListener()));
-        viewModel.getToastMsgLiveData().observe(this, msg -> {
-            if (!isFront) return;
-            showShortToast(msg);
-        });
+
+
     }
 
     protected <T extends ViewModel> T getActivityViewModel(@NonNull Class<T> modelClass) {
@@ -57,6 +48,35 @@ public abstract class BaseActivity extends DataBindingActivity {
 
     protected ViewModelProvider getAppViewModelProvider() {
         return super.getAppViewModelProvider();
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        LiveDataManager.getInstance().toastLiveData.observe(this, s -> showShortToast(s));
+        LiveDataManager.getInstance().errorMsgLiveData.observe(this, msg -> showInfoDialog(msg));
+        LiveDataManager.getInstance().dismissProcessDialogLiveData.observe(this, aBoolean -> {
+            if (aBoolean) {
+                BaseDialogUtils.dismissProgressDialog();
+            }
+        });
+        LiveDataManager.getInstance().processMsgLiveData
+                .observe(this, msg -> BaseDialogUtils.showProgressDialog(this, "", msg));
+        LiveDataManager.getInstance().infoDialogLiveData.observe(this, infoDialogBean ->
+                showInfoDialog(infoDialogBean.getMsg(), infoDialogBean.getOnConfirmListener())
+        );
+        LiveDataManager.getInstance().confirmDialogLiveData
+                .observe(this, confirmDialogBean ->
+                        showConfirmDialog(confirmDialogBean.getMsg(), confirmDialogBean.getOnConfirmListener(),
+                                confirmDialogBean.getOnCancelListener()));
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        BaseDialogUtils.dismissAll();
     }
 
     protected void showInfoDialog(String msg) {
@@ -77,24 +97,6 @@ public abstract class BaseActivity extends DataBindingActivity {
                                   BaseDialogUtils.OnClickListener onConfirmListener,
                                   BaseDialogUtils.OnClickListener onCancelListener) {
         BaseDialogUtils.showConfirmDialog(this, msg, onConfirmListener, onCancelListener);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        isFront = true;
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        isFront = false;
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        BaseDialogUtils.dismissAll();
     }
 
     public void goActivity(Class<? extends Activity> className) {
