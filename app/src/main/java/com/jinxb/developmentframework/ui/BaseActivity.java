@@ -110,6 +110,12 @@ public abstract class BaseActivity extends DataBindingActivity {
         startActivity(mIntent);
     }
 
+    public void goActivityWithDataForResult(Class<? extends Activity> className, Bundle b, int requestCode) {
+        Intent mIntent = new Intent(this, className);
+        mIntent.putExtras(b);
+        startActivityForResult(mIntent, requestCode);
+    }
+
     public void goActivityForResult(Class<? extends Activity> className,
                                     int requestCode) {
         Intent intent = new Intent(this, className);
