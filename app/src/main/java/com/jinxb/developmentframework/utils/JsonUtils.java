@@ -3,7 +3,7 @@ package com.jinxb.developmentframework.utils;
 import com.alibaba.fastjson.JSONObject;
 
 public class JsonUtils {
-    public boolean isJsonObj(String text) {
+    public static boolean isJsonObj(String text) {
         try {
             JSONObject object = JSONObject.parseObject(text);
         } catch (Exception e) {
