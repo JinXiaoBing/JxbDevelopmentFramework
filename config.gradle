@@ -38,7 +38,8 @@ ext {
             "gson"                         : 'com.google.code.gson:gson:2.8.6',
             "BaseRecyclerViewAdapterHelper": 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4',
             "refreshlayoutBGA"                : 'cn.bingoogolapple:bga-refreshlayout-androidx:2.0.0@aar',
-            "refreshlayoutSwipe"                : 'com.github.Aspsine:SwipeToLoadLayout:1.0.4'
+            "refreshlayoutSwipe"                : 'com.github.Aspsine:SwipeToLoadLayout:1.0.4',
+            "fastJson"                : 'com.alibaba:fastjson:1.1.72.android'
     ]
 }
 

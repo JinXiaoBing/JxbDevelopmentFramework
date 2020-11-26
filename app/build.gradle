@@ -56,4 +56,5 @@ dependencies {
     api rootProject.ext.dependencies.refreshlayoutBGA
     api rootProject.ext.dependencies.refreshlayoutSwipe
     api rootProject.ext.dependencies.BaseRecyclerViewAdapterHelper
+    api rootProject.ext.dependencies.fastJson
 }
