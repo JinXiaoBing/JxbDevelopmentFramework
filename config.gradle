@@ -26,7 +26,7 @@ ext {
     dependencies = [
             "PickerView"                   : 'com.contrarywind:Android-PickerView:4.1.9',
             "UpdatePlugin"                 : "com.github.yjfnypeu:UpdatePlugin:3.1.3",
-            "utilcode"                     : 'com.blankj:utilcode:1.23.7',
+            "utilcode"                     : 'com.blankj:utilcode:1.30.0',
             "okgo"                         : 'com.lzy.net:okgo:3.0.4',
             "okrx2"                        : 'com.lzy.net:okrx2:2.0.2',
             "okserver"                     : 'com.lzy.net:okserver:2.0.5',
