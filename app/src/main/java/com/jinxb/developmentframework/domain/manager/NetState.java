@@ -23,6 +23,7 @@ public class NetState {
 
     private String responseCode;
     private boolean success = true;
+    private String errorMsg ;
 
     public NetState(String responseCode, boolean success) {
         this.responseCode = responseCode;
@@ -46,5 +47,13 @@ public class NetState {
 
     public void setSuccess(boolean success) {
         this.success = success;
+    }
+
+    public String getErrorMsg() {
+        return errorMsg;
+    }
+
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
     }
 }
