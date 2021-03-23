@@ -23,6 +23,7 @@ import com.jinxb.developmentframework.data.repository.DataResult;
 import com.jinxb.developmentframework.domain.manager.NetState;
 import com.lzy.okgo.callback.AbsCallback;
 
+import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
@@ -57,7 +58,11 @@ public  class JsonCallback<T> extends AbsCallback<T> {
         NetState netState = new NetState();
         netState.setSuccess(false);
         netState.setResponseCode(response.code()+"");
-        netState.setErrorMsg(response.getRawResponse().body().toString());
+        try {
+            netState.setErrorMsg(response.getRawResponse().body().string());
+        } catch (IOException e) {
+            netState.setErrorMsg(response.getRawResponse().message());
+        }
         result.setResult(null,netState);
     }
 
