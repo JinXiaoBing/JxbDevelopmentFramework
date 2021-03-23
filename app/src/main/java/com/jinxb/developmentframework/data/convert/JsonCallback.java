@@ -40,11 +40,11 @@ public  class JsonCallback<T> extends AbsCallback<T> {
 
     @Override
     public void onSuccess(com.lzy.okgo.model.Response<T> response) {
-        if (response == null) {
+        T body = response.body();
+        if (body == null) {
             onError(response);
             return;
         }
-        T body = response.body();
         NetState netState = new NetState();
         netState.setSuccess(true);
         netState.setResponseCode(response.code() + "");
