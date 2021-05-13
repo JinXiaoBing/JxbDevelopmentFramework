@@ -178,7 +178,7 @@ public class PickerViewUtils {
         pvOptions.show();
     }
 
-    interface OnDataTransform<T> {
+    public interface OnDataTransform<T> {
         String onDataTransform(T item);
     }
 }
