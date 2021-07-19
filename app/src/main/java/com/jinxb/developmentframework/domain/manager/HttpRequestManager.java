@@ -103,7 +103,7 @@ public class HttpRequestManager {
                             String fileParamsKey, List<File> fileList, AbsCallback callback) {
         PostRequest<String> request = OkGo.post(url);
         if (!TextUtils.isEmpty(fileParamsKey)) {
-            request.headers("Content-Type", "multipart/form-data; charset=utf-8");
+            request.isMultipart(true);
         }
         request.retryCount(0)
                 .headers(headers)
