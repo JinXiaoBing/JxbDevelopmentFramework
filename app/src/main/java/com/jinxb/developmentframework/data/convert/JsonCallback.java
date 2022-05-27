@@ -64,7 +64,6 @@ public  class JsonCallback<T> extends AbsCallback<T> {
             }else {
                 netState.setErrorMsg(response.getRawResponse().body().string());
             }
-            netState.setErrorMsg(response.getRawResponse().body().string());
         } catch (IOException e) {
             netState.setErrorMsg(response.getRawResponse().message());
         }
